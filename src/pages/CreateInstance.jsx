@@ -110,18 +110,18 @@ const CreateInstance = () => {
   ]
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
       {/* Header */}
       <div className="mb-8">
         <button
           onClick={() => navigate('/instances')}
-          className="flex items-center text-gray-600 hover:text-gray-900 mb-4"
+          className="flex items-center text-gray-400 hover:text-gray-200 mb-4"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Instances
         </button>
-        <h1 className="text-3xl font-bold text-gray-900">Create Database Instance</h1>
-        <p className="text-gray-600 mt-2">Deploy a new database instance in the cloud</p>
+        <h1 className="text-3xl font-bold text-white">Create Database Instance</h1>
+        <p className="text-gray-300 mt-2">Deploy a new database instance in the cloud</p>
       </div>
 
       {/* Progress Steps */}
@@ -138,7 +138,7 @@ const CreateInstance = () => {
               </div>
               <div className="ml-3 hidden sm:block">
                 <p className={`text-sm font-medium ${
-                  currentStep >= step.id ? 'text-primary-600' : 'text-gray-500'
+                  currentStep >= step.id ? 'text-primary-400' : 'text-gray-400'
                 }`}>
                   {step.name}
                 </p>
@@ -158,16 +158,16 @@ const CreateInstance = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-lg shadow-sm border border-gray-200 p-8"
+          className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg p-8"
         >
           {/* Step 1: Database Configuration */}
           {currentStep === 1 && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">Database Configuration</h2>
+              <h2 className="text-xl font-semibold text-white mb-6">Database Configuration</h2>
               
               {/* Instance Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
                   Instance Name
                 </label>
                 <input
@@ -193,7 +193,7 @@ const CreateInstance = () => {
 
               {/* Database Type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
                   Database Type
                 </label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -217,8 +217,8 @@ const CreateInstance = () => {
                             {db.icon}
                           </div>
                           <div className="ml-3">
-                            <p className="font-medium text-gray-900">{db.name}</p>
-                            <p className="text-sm text-gray-600">Port {db.defaultPort}</p>
+                            <p className="font-medium text-white">{db.name}</p>
+                            <p className="text-sm text-gray-400">Port {db.defaultPort}</p>
                           </div>
                         </div>
                       </div>

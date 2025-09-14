@@ -157,7 +157,7 @@ const Logs = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
       {/* Header */}
       <div className="mb-8">
         <Link
@@ -169,8 +169,8 @@ const Logs = () => {
         </Link>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Instance Logs</h1>
-            <p className="text-gray-600 mt-2">Monitor your database instance logs in real-time</p>
+            <h1 className="text-3xl font-bold text-white">Instance Logs</h1>
+            <p className="text-gray-300 mt-2">Monitor your database instance logs in real-time</p>
           </div>
           <div className="flex items-center space-x-3">
             <button
@@ -196,7 +196,7 @@ const Logs = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8"
+        className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg p-6 mb-8"
       >
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
           {/* Log Type */}
@@ -276,7 +276,7 @@ const Logs = () => {
           </div>
         </div>
 
-        <div className="mt-4 flex items-center text-sm text-gray-600">
+        <div className="mt-4 flex items-center text-sm text-gray-300">
           <Filter className="h-4 w-4 mr-2" />
           Showing {filteredLogs.length} of {logs.length} log entries
         </div>
@@ -287,7 +287,7 @@ const Logs = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="bg-white rounded-lg shadow-sm border border-gray-200"
+        className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg"
       >
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-center justify-between">

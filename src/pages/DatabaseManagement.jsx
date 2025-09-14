@@ -114,7 +114,7 @@ const DatabaseManagement = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
       {/* Header */}
       <div className="mb-8">
         <Link
@@ -126,8 +126,8 @@ const DatabaseManagement = () => {
         </Link>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Database Users</h1>
-            <p className="text-gray-600 mt-2">Manage database users and their permissions</p>
+            <h1 className="text-3xl font-bold text-white">Database Users</h1>
+            <p className="text-gray-300 mt-2">Manage database users and their permissions</p>
           </div>
           <button
             onClick={() => setShowCreateForm(true)}
@@ -145,10 +145,10 @@ const DatabaseManagement = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8"
+          className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg p-6 mb-8"
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Create New User</h2>
+            <h2 className="text-lg font-semibold text-white">Create New User</h2>
             <button
               onClick={() => {
                 setShowCreateForm(false)

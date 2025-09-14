@@ -124,12 +124,12 @@ const Instances = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Database Instances</h1>
-          <p className="text-gray-600 mt-2">Manage your database instances</p>
+          <h1 className="text-3xl font-bold text-white">Database Instances</h1>
+          <p className="text-gray-300 mt-2">Manage your database instances</p>
         </div>
         <Link
           to="/instances/create"
@@ -145,7 +145,7 @@ const Instances = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8"
+        className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg p-6 mb-8"
       >
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Search */}
@@ -185,7 +185,7 @@ const Instances = () => {
           </select>
 
           {/* Results Count */}
-          <div className="flex items-center text-sm text-gray-600">
+          <div className="flex items-center text-sm text-gray-300">
             <Filter className="h-4 w-4 mr-2" />
             {filteredInstances.length} of {instances.length} instances
           </div>
@@ -198,13 +198,13 @@ const Instances = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center"
+          className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg p-12 text-center"
         >
           <Database className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-semibold text-white mb-2">
             {instances.length === 0 ? 'No instances yet' : 'No matching instances'}
           </h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-300 mb-6">
             {instances.length === 0 
               ? 'Get started by creating your first database instance.'
               : 'Try adjusting your search or filter criteria.'
@@ -228,7 +228,7 @@ const Instances = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 hover:border-primary-200 cursor-pointer"
+              className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:border-primary-500 cursor-pointer"
               onClick={() => window.location.href = `/instances/${instance.instanceId}`}
             >
               <div className="p-6">
@@ -238,8 +238,8 @@ const Instances = () => {
                       <Database className="h-6 w-6 text-primary-600" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">{instance.name}</h3>
-                      <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                      <h3 className="text-lg font-semibold text-white">{instance.name}</h3>
+                      <div className="flex items-center space-x-4 text-sm text-gray-300 mt-1">
                         <span>{instance.databaseType} {instance.databaseVersion}</span>
                         <span>•</span>
                         <span>{instance.instanceType}</span>
@@ -323,27 +323,27 @@ const Instances = () => {
               </div>
 
               {/* Instance Details */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="mt-4 pt-4 border-t border-dark-600">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
-                    <span className="text-gray-600">Public IP:</span>
-                    <p className="font-medium text-gray-900 truncate">
+                    <span className="text-gray-400">Public IP:</span>
+                    <p className="font-medium text-white truncate">
                       {instance.networkConfig?.publicIp || 'Not assigned'}
                     </p>
                   </div>
                   <div>
-                    <span className="text-gray-600">Private IP:</span>
-                    <p className="font-medium text-gray-900 truncate">
+                    <span className="text-gray-400">Private IP:</span>
+                    <p className="font-medium text-white truncate">
                       {instance.networkConfig?.privateIp || 'Not assigned'}
                     </p>
                   </div>
                   <div>
-                    <span className="text-gray-600">Port:</span>
-                    <p className="font-medium text-gray-900">{instance.databasePort || 'N/A'}</p>
+                    <span className="text-gray-400">Port:</span>
+                    <p className="font-medium text-white">{instance.databasePort || 'N/A'}</p>
                   </div>
                   <div>
-                    <span className="text-gray-600">Region:</span>
-                    <p className="font-medium text-gray-900">{instance.region || 'ap-south-1'}</p>
+                    <span className="text-gray-400">Region:</span>
+                    <p className="font-medium text-white">{instance.region || 'ap-south-1'}</p>
                   </div>
                 </div>
               </div>

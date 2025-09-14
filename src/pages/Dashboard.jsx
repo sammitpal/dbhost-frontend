@@ -15,7 +15,13 @@ import {
   XCircle,
   Play,
   Square,
-  MoreVertical
+  MoreVertical,
+  Cpu,
+  HardDrive,
+  Network,
+  Shield,
+  Zap,
+  Globe
 } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
@@ -115,11 +121,11 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-2">Welcome back! Here's an overview of your database instances.</p>
+        <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+        <p className="text-gray-300 mt-2">Welcome back! Here's an overview of your database instances.</p>
       </div>
 
       {/* Stats Cards */}
@@ -128,15 +134,15 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+          className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg p-6 hover:border-primary-500 transition-colors duration-300"
         >
           <div className="flex items-center">
             <div className="bg-primary-100 p-3 rounded-lg">
               <Database className="h-6 w-6 text-primary-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Instances</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+              <p className="text-sm font-medium text-gray-400">Total Instances</p>
+              <p className="text-2xl font-bold text-white">{stats.total}</p>
             </div>
           </div>
         </motion.div>
@@ -145,15 +151,15 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+          className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg p-6 hover:border-primary-500 transition-colors duration-300"
         >
           <div className="flex items-center">
             <div className="bg-green-100 p-3 rounded-lg">
               <CheckCircle className="h-6 w-6 text-green-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Running</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.running}</p>
+              <p className="text-sm font-medium text-gray-400">Running</p>
+              <p className="text-2xl font-bold text-white">{stats.running}</p>
             </div>
           </div>
         </motion.div>
@@ -162,15 +168,15 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+          className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg p-6 hover:border-primary-500 transition-colors duration-300"
         >
           <div className="flex items-center">
             <div className="bg-red-100 p-3 rounded-lg">
               <XCircle className="h-6 w-6 text-red-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Stopped</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.stopped}</p>
+              <p className="text-sm font-medium text-gray-400">Stopped</p>
+              <p className="text-2xl font-bold text-white">{stats.stopped}</p>
             </div>
           </div>
         </motion.div>
@@ -179,15 +185,15 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
+          className="bg-dark-800 border border-dark-600 rounded-lg shadow-lg p-6 hover:border-primary-500 transition-colors duration-300"
         >
           <div className="flex items-center">
             <div className="bg-blue-100 p-3 rounded-lg">
               <Users className="h-6 w-6 text-blue-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Users</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalUsers}</p>
+              <p className="text-sm font-medium text-gray-400">Total Users</p>
+              <p className="text-2xl font-bold text-white">{stats.totalUsers}</p>
             </div>
           </div>
         </motion.div>
@@ -204,7 +210,7 @@ const Dashboard = () => {
           >
             <div className="p-6 border-b border-gray-200">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-gray-900">Recent Instances</h2>
+                <h2 className="text-lg font-semibold text-white">Recent Instances</h2>
                 <Link
                   to="/instances"
                   className="text-primary-600 hover:text-primary-700 text-sm font-medium"
@@ -217,8 +223,8 @@ const Dashboard = () => {
               {instances.length === 0 ? (
                 <div className="text-center py-8">
                   <Database className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No instances yet</h3>
-                  <p className="text-gray-600 mb-4">Get started by creating your first database instance.</p>
+                  <h3 className="text-lg font-medium text-white mb-2">No instances yet</h3>
+                  <p className="text-gray-300 mb-4">Get started by creating your first database instance.</p>
                   <Link
                     to="/instances/create"
                     className="btn-primary inline-flex items-center"
@@ -232,7 +238,7 @@ const Dashboard = () => {
                   {instances.map((instance) => (
                     <div 
                       key={instance.instanceId} 
-                      className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary-200 transition-all cursor-pointer"
+                      className="flex items-center justify-between p-4 border border-dark-600 rounded-lg hover:bg-dark-700 hover:border-primary-500 transition-all cursor-pointer"
                       onClick={() => window.location.href = `/instances/${instance.instanceId}`}
                     >
                       <div className="flex items-center space-x-4">
@@ -240,8 +246,8 @@ const Dashboard = () => {
                           <Database className="h-5 w-5 text-primary-600" />
                         </div>
                         <div>
-                          <h3 className="font-medium text-gray-900">{instance.name}</h3>
-                          <p className="text-sm text-gray-600">
+                          <h3 className="font-medium text-white">{instance.name}</h3>
+                          <p className="text-sm text-gray-300">
                             {instance.databaseType} • {instance.instanceType}
                             {instance.networkConfig?.publicIp && (
                               <span className="text-green-600 ml-2">• IP: {instance.networkConfig.publicIp}</span>

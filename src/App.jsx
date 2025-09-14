@@ -16,7 +16,7 @@ import Logs from './pages/Logs'
 function App() {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-dark-900">
         <Navbar />
         <main>
           <Routes>
@@ -61,7 +61,7 @@ function App() {
           toastOptions={{
             duration: 4000,
             style: {
-              background: '#363636',
+              background: '#1e293b',
               color: '#fff',
             },
           }}

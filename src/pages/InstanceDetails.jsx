@@ -153,20 +153,20 @@ const InstanceDetails = () => {
       <div className="mb-8">
         <button
           onClick={() => navigate('/instances')}
-          className="flex items-center text-gray-600 hover:text-gray-900 mb-4"
+          className="flex items-center text-gray-400 hover:text-gray-200 mb-4"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Instances
         </button>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">{instance.name}</h1>
+            <h1 className="text-3xl font-bold text-white">{instance.name}</h1>
             <div className="flex items-center space-x-4 mt-2">
               {getStatusIcon(instance.status)}
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(instance.status)}`}>
                 {instance.status}
               </span>
-              <span className="text-gray-600">
+              <span className="text-gray-300">
                 {instance.databaseType} {instance.databaseVersion} • {instance.instanceType}
               </span>
             </div>
@@ -242,7 +242,7 @@ const InstanceDetails = () => {
             transition={{ duration: 0.6 }}
             className="bg-white rounded-lg shadow-sm border border-gray-200 p-6"
           >
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Connection Information</h2>
+            <h2 className="text-lg font-semibold text-white mb-4">Connection Information</h2>
             
             {connectionInfo ? (
               <div className="space-y-4">
