@@ -228,86 +228,96 @@ const Instances = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+              className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 hover:border-primary-200 cursor-pointer"
+              onClick={() => window.location.href = `/instances/${instance.instanceId}`}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-primary-100 p-3 rounded-lg">
-                    <Database className="h-6 w-6 text-primary-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{instance.name}</h3>
-                    <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
-                      <span>{instance.databaseType} {instance.databaseVersion}</span>
-                      <span>•</span>
-                      <span>{instance.instanceType}</span>
-                      <span>•</span>
-                      <span>Created {new Date(instance.createdAt).toLocaleDateString()}</span>
+              <div className="p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="bg-primary-100 p-3 rounded-lg">
+                      <Database className="h-6 w-6 text-primary-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">{instance.name}</h3>
+                      <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                        <span>{instance.databaseType} {instance.databaseVersion}</span>
+                        <span>•</span>
+                        <span>{instance.instanceType}</span>
+                        <span>•</span>
+                        <span>Created {new Date(instance.createdAt).toLocaleDateString()}</span>
+                        {instance.networkConfig?.publicIp && (
+                          <>
+                            <span>•</span>
+                            <span className="text-green-600 font-medium">Public IP Available</span>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="flex items-center space-x-4">
-                  {/* Status */}
-                  <div className="flex items-center space-x-2">
-                    {getStatusIcon(instance.status)}
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(instance.status)}`}>
-                      {instance.status}
-                    </span>
-                  </div>
+                  <div className="flex items-center space-x-4">
+                    {/* Status */}
+                    <div className="flex items-center space-x-2">
+                      {getStatusIcon(instance.status)}
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(instance.status)}`}>
+                        {instance.status}
+                      </span>
+                    </div>
 
-                  {/* Actions */}
-                  <div className="flex items-center space-x-2">
-                    {instance.status === 'stopped' && (
+                    {/* Actions */}
+                    <div className="flex items-center space-x-2" onClick={(e) => e.stopPropagation()}>
+                      {instance.status === 'stopped' && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleInstanceAction(instance.instanceId, 'start')
+                          }}
+                          disabled={actionLoading[instance.instanceId] === 'start'}
+                          className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors disabled:opacity-50"
+                          title="Start instance"
+                        >
+                          {actionLoading[instance.instanceId] === 'start' ? (
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600"></div>
+                          ) : (
+                            <Play className="h-4 w-4" />
+                          )}
+                        </button>
+                      )}
+
+                      {instance.status === 'running' && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleInstanceAction(instance.instanceId, 'stop')
+                          }}
+                          disabled={actionLoading[instance.instanceId] === 'stop'}
+                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                          title="Stop instance"
+                        >
+                          {actionLoading[instance.instanceId] === 'stop' ? (
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600"></div>
+                          ) : (
+                            <Square className="h-4 w-4" />
+                          )}
+                        </button>
+                      )}
+
                       <button
-                        onClick={() => handleInstanceAction(instance.instanceId, 'start')}
-                        disabled={actionLoading[instance.instanceId] === 'start'}
-                        className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors disabled:opacity-50"
-                        title="Start instance"
-                      >
-                        {actionLoading[instance.instanceId] === 'start' ? (
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600"></div>
-                        ) : (
-                          <Play className="h-4 w-4" />
-                        )}
-                      </button>
-                    )}
-
-                    {instance.status === 'running' && (
-                      <button
-                        onClick={() => handleInstanceAction(instance.instanceId, 'stop')}
-                        disabled={actionLoading[instance.instanceId] === 'stop'}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleInstanceAction(instance.instanceId, 'terminate')
+                        }}
+                        disabled={actionLoading[instance.instanceId] === 'terminate'}
                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
-                        title="Stop instance"
+                        title="Terminate instance"
                       >
-                        {actionLoading[instance.instanceId] === 'stop' ? (
+                        {actionLoading[instance.instanceId] === 'terminate' ? (
                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600"></div>
                         ) : (
-                          <Square className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4" />
                         )}
                       </button>
-                    )}
-
-                    <Link
-                      to={`/instances/${instance.instanceId}`}
-                      className="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
-                      title="Instance details"
-                    >
-                      <Settings className="h-4 w-4" />
-                    </Link>
-
-                    <button
-                      onClick={() => handleInstanceAction(instance.instanceId, 'terminate')}
-                      disabled={actionLoading[instance.instanceId] === 'terminate'}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
-                      title="Terminate instance"
-                    >
-                      {actionLoading[instance.instanceId] === 'terminate' ? (
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600"></div>
-                      ) : (
-                        <Trash2 className="h-4 w-4" />
-                      )}
-                    </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -316,22 +326,24 @@ const Instances = () => {
               <div className="mt-4 pt-4 border-t border-gray-200">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
-                    <span className="text-gray-600">Endpoint:</span>
+                    <span className="text-gray-600">Public IP:</span>
                     <p className="font-medium text-gray-900 truncate">
-                      {instance.endpoint || 'Not available'}
+                      {instance.networkConfig?.publicIp || 'Not assigned'}
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Private IP:</span>
+                    <p className="font-medium text-gray-900 truncate">
+                      {instance.networkConfig?.privateIp || 'Not assigned'}
                     </p>
                   </div>
                   <div>
                     <span className="text-gray-600">Port:</span>
-                    <p className="font-medium text-gray-900">{instance.port || 'N/A'}</p>
-                  </div>
-                  <div>
-                    <span className="text-gray-600">Master User:</span>
-                    <p className="font-medium text-gray-900">{instance.masterUsername || 'N/A'}</p>
+                    <p className="font-medium text-gray-900">{instance.databasePort || 'N/A'}</p>
                   </div>
                   <div>
                     <span className="text-gray-600">Region:</span>
-                    <p className="font-medium text-gray-900">{instance.region || 'us-east-1'}</p>
+                    <p className="font-medium text-gray-900">{instance.region || 'ap-south-1'}</p>
                   </div>
                 </div>
               </div>

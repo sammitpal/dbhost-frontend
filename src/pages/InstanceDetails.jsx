@@ -174,6 +174,18 @@ const InstanceDetails = () => {
           
           {/* Action Buttons */}
           <div className="flex items-center space-x-3">
+            <button
+              onClick={() => {
+                fetchInstanceDetails()
+                fetchConnectionInfo()
+              }}
+              className="btn-secondary flex items-center"
+              title="Refresh instance data"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Refresh
+            </button>
+
             {instance.status === 'stopped' && (
               <button
                 onClick={() => handleInstanceAction('start')}
@@ -236,17 +248,18 @@ const InstanceDetails = () => {
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Endpoint</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Public IP Address</label>
                     <div className="flex items-center space-x-2">
                       <input
                         type="text"
-                        value={connectionInfo.endpoint || 'Not available'}
+                        value={instance.networkConfig?.publicIp || connectionInfo.host || 'Not assigned'}
                         readOnly
                         className="input-field flex-1"
                       />
                       <button
-                        onClick={() => copyToClipboard(connectionInfo.endpoint)}
+                        onClick={() => copyToClipboard(instance.networkConfig?.publicIp || connectionInfo.host)}
                         className="p-2 text-gray-600 hover:text-gray-900"
+                        disabled={!instance.networkConfig?.publicIp && !connectionInfo.host}
                       >
                         <Copy className="h-4 w-4" />
                       </button>
@@ -296,10 +309,10 @@ const InstanceDetails = () => {
                   <h3 className="font-medium text-gray-900 mb-2">Connection String</h3>
                   <div className="flex items-center space-x-2">
                     <code className="flex-1 bg-white p-2 rounded border text-sm">
-                      {instance.databaseType}://{instance.masterUsername}:password@{connectionInfo.endpoint}:{connectionInfo.port}/postgres
+                      {instance.databaseType}://{instance.masterUsername}:password@{instance.networkConfig?.publicIp || connectionInfo.host || 'IP_ADDRESS'}:{connectionInfo.port || instance.databasePort}/postgres
                     </code>
                     <button
-                      onClick={() => copyToClipboard(`${instance.databaseType}://${instance.masterUsername}:password@${connectionInfo.endpoint}:${connectionInfo.port}/postgres`)}
+                      onClick={() => copyToClipboard(`${instance.databaseType}://${instance.masterUsername}:password@${instance.networkConfig?.publicIp || connectionInfo.host || 'IP_ADDRESS'}:${connectionInfo.port || instance.databasePort}/postgres`)}
                       className="p-2 text-gray-600 hover:text-gray-900"
                     >
                       <Copy className="h-4 w-4" />
@@ -341,11 +354,19 @@ const InstanceDetails = () => {
               </div>
               
               <div>
-                <h3 className="font-medium text-gray-900 mb-3">Instance Details</h3>
+                <h3 className="font-medium text-gray-900 mb-3">Network & Instance Details</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
+                    <span className="text-gray-600">Public IP:</span>
+                    <span className="font-medium font-mono text-xs">{instance.networkConfig?.publicIp || 'Not assigned'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Private IP:</span>
+                    <span className="font-medium font-mono text-xs">{instance.networkConfig?.privateIp || 'Not assigned'}</span>
+                  </div>
+                  <div className="flex justify-between">
                     <span className="text-gray-600">Region:</span>
-                    <span className="font-medium">{instance.region || 'us-east-1'}</span>
+                    <span className="font-medium">{instance.region || 'ap-south-1'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Created:</span>
