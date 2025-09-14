@@ -11,7 +11,7 @@ export default {
       },
       colors: {
         primary: {
-          50: '#f0f9ff',
+          50:  '#f0f9ff',
           100: '#e0f2fe',
           200: '#bae6fd',
           300: '#7dd3fc',
@@ -23,7 +23,7 @@ export default {
           900: '#0c4a6e',
         },
         gray: {
-          50: '#f9fafb',
+          50:  '#f9fafb',
           100: '#f3f4f6',
           200: '#e5e7eb',
           300: '#d1d5db',
@@ -34,6 +34,11 @@ export default {
           800: '#1f2937',
           900: '#111827',
         },
+
+        /* ✅ Added design-token style colors so your @apply lines work */
+        border:     '#e5e7eb',  // used by border-border
+        background: '#f9fafb',  // used by bg-background
+        foreground: '#111827',  // used by text-foreground
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -53,4 +58,4 @@ export default {
     },
   },
   plugins: [],
-} 
+}
