@@ -230,7 +230,11 @@ const Dashboard = () => {
               ) : (
                 <div className="space-y-4">
                   {instances.map((instance) => (
-                    <div key={instance.instanceId} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div 
+                      key={instance.instanceId} 
+                      className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-primary-200 transition-all cursor-pointer"
+                      onClick={() => window.location.href = `/instances/${instance.instanceId}`}
+                    >
                       <div className="flex items-center space-x-4">
                         <div className="bg-primary-100 p-2 rounded-lg">
                           <Database className="h-5 w-5 text-primary-600" />
@@ -239,6 +243,9 @@ const Dashboard = () => {
                           <h3 className="font-medium text-gray-900">{instance.name}</h3>
                           <p className="text-sm text-gray-600">
                             {instance.databaseType} • {instance.instanceType}
+                            {instance.networkConfig?.publicIp && (
+                              <span className="text-green-600 ml-2">• IP: {instance.networkConfig.publicIp}</span>
+                            )}
                           </p>
                         </div>
                       </div>
@@ -246,12 +253,9 @@ const Dashboard = () => {
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(instance.status)}`}>
                           {instance.status}
                         </span>
-                        <Link
-                          to={`/instances/${instance.instanceId}`}
-                          className="text-primary-600 hover:text-primary-700"
-                        >
+                        <div className="text-primary-600">
                           <MoreVertical className="h-4 w-4" />
-                        </Link>
+                        </div>
                       </div>
                     </div>
                   ))}
